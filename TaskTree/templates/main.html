@@ -18,7 +18,7 @@
     </form>
     {% if count_tasks > 0 %}
         {% for task in tasks_list %}
-            <h4 href="card_task/{{ task.id }}">{{ task.title }}</h4>
+            <a href="card_task/{{ task.id }}/">{{ task.title }}</a>
             <a>  Наало {{ task.start }} </a>
             <a>  Завершение {{ task.end }} </a>
         {% endfor %}

@@ -47,13 +47,19 @@ def MainPage(request):
 
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
-    vtask_id = find_task.values()['id']
+    vtask_id = str(find_task.values()[0]['id'])
+    # print(type(vtask_id),vtask_id,task_id)
     # info_task = {}
-    if vtask_id==task_id:
-        link_task = Univers_list.object.filter(id_out=vtask_id)
+    # if vtask_id==task_id:
+    if find_task:
+        link_task = Univers_list.objects.filter(id_out=vtask_id)
         count_link_task = link_task.count()
-        list_link_task = Tasks.object.filter(id_in=link_task)
-        notlist_link_task = Tasks.object.filter(id_in!=[link_task,vtask_id])
+        if count_link_task>0:
+            list_link_task = Univers_list.objects.filter(id_in=link_task)
+            notlist_link_task = Tasks.objects.exclude(id=link_task).exclude(id=vtask_id)
+        else:
+            list_link_task = None
+            notlist_link_task = Tasks.objects.exclude(id=vtask_id)
         if request.method == 'POST':
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
