@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from TaskTreeApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',main),
+    path('addtask/',create_task),
 ]
