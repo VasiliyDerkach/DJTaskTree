@@ -5,8 +5,8 @@ from django.db import models
 class Tasks(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=250)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    start = models.DateField(null=True)
+    end = models.DateField(null=True)
 class Univers_list(models.Model):
     id_out = models.CharField(max_length=36, blank=False)
     id_in = models.CharField(max_length=36, blank=False)

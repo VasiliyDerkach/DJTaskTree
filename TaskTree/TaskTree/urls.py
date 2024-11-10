@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from TaskTreeApp.views import *
-
+from TaskTreeApp.forms import *
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',main),
-    path('addtask/',create_task),
+    path('',MainPage),
+    path('addtask/',VCreateTask),
+    path('addcontact/',VCreateContact),
+    path('card_task/<str:task_id>',VCardTask),
 ]

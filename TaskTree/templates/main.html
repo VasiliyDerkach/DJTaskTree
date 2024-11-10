@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body>
+    <a href="/addtask/">Создать задачу</a>
+    <a href="/addcontact/">Создать контакт</a>
+    <h3> {{ PageTitle }} </h3>
+    <label for="FindTitle">
+        Введите текст задачи
+    </label>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" id="FindTitle" name="FindTitle" maxlength="50" value="{{ FindTitle }}">
+        <button type="submit" name="btn_find" value="new_find">Найти задачи</button>
+    </form>
+    {% if count_tasks > 0 %}
+        {% for task in tasks_list %}
+            <h4 href="card_task/{{ task.id }}">{{ task.title }}</h4>
+            <a>  Наало {{ task.start }} </a>
+            <a>  Завершение {{ task.end }} </a>
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>
