@@ -54,6 +54,14 @@ def VCardTask(request, task_id):
         count_link_task = link_task.count()
         list_link_task = Tasks.object.filter(id_in=link_task)
         notlist_link_task = Tasks.object.filter(id_in!=[link_task,vtask_id])
+        if request.method == 'POST':
+            btn_unlink = request.POST.get('btn_unlink')
+            if btn_unlink:
+                Univers_list.objects.filter(id_in=vtask_id,id_out=btn_unlink).delete()
+            btn_link = request.POST.get('btn_link')
+            if btn_link:
+                Univers_list.objects.create(id_in=vtask_id,id_out=btn_unlink)
+
     else:
         return HttpResponse("Задача не найдена")
     info_task = {'task_id': vtask_id, 'find_task':find_task,'count_link_task':count_link_task,
