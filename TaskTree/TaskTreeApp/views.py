@@ -48,7 +48,7 @@ def MainPage(request):
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
     vtask_id = find_task.values()['id']
-    info_task = {}
+    # info_task = {}
     if vtask_id==task_id:
         link_task = Univers_list.object.filter(id_out=vtask_id)
         count_link_task = link_task.count()

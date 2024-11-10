@@ -21,7 +21,7 @@ from TaskTreeApp.forms import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',MainPage),
-    path('addtask/',VCreateTask),
-    path('addcontact/',VCreateContact),
-    path('card_task/<str:task_id>',VCardTask),
+    path('addtask/',VCreateTask, name='addtask'),
+    path('addcontact/',VCreateContact, name= 'addcontact'),
+    path('card_task/<str:task_id>/',VCardTask, name='card_task'),
 ]
