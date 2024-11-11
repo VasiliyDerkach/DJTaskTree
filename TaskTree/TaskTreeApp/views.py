@@ -47,19 +47,31 @@ def MainPage(request):
 
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
-    vtask_id = str(find_task.values()[0]['id'])
+    vtask_id, vtask_title, vtask_start, vtask_end = str(find_task.values()[0]['id','title','start','end'])
     # print(type(vtask_id),vtask_id,task_id)
     # info_task = {}
     # if vtask_id==task_id:
     if find_task:
         link_task = Univers_list.objects.filter(id_out=vtask_id)
-        count_link_task = link_task.count()
+        # count_link_task = link_task.count()
+        if request.method == 'POST':
+            btn_find_link = request.POST.get('btn_find_link')
+            FindTitle = ''
+            if btn_find_link:
+                if not request.POST.get('btn_find_link') is None:
+                    FindTitle = request.POST.get('FindTitle')
+            btn_find_unlink = request.POST.get('btn_find_unlink')
+            if btn_find_unlink:
+                if not request.POST.get('btn_find_unlink') is None:
+                    FindTitleUnLink = request.POST.get('FindTitleUnlink')
         if count_link_task>0:
-            list_link_task = Univers_list.objects.filter(id_in=link_task)
-            notlist_link_task = Tasks.objects.exclude(id=link_task).exclude(id=vtask_id)
+            list_link_task = Univers_list.objects.filter(id_in=link_task,title__icontains=FindTitle)
+            notlist_link_task = Tasks.objects.exclude(id=link_task).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
         else:
             list_link_task = None
-            notlist_link_task = Tasks.objects.exclude(id=vtask_id)
+            notlist_link_task = Tasks.objects.exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
+        count_link_tasks = list_link_task.count()
+        count_unlink_tasks = notlist_link_task.count()
         if request.method == 'POST':
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
@@ -70,6 +82,8 @@ def VCardTask(request, task_id):
 
     else:
         return HttpResponse("Задача не найдена")
-    info_task = {'task_id': vtask_id, 'find_task':find_task,'count_link_task':count_link_task,
-                 'list_link_task':list_link_task, 'notlist_link_task':notlist_link_task}
+    info_task = {'task_id': vtask_id, 'task_title': vtask_title, 'task_start':vtask_start,
+                'task_end': vtask_end,'count_link_task': count_link_task,
+                 'list_link_task':list_link_task, 'notlist_link_task':notlist_link_task,
+                 'count_link_tasks': count_link_tasks,'count_unlink_tasks': count_unlink_tasks}
     return render(request,'card_task.html',context=info_task)
