@@ -24,11 +24,11 @@
                 </div>
             {% endfor%}
     {% else %}
-        <h3> С этой задачей пока не связазно других задач, соответствующих условиям поиска </h3>
+        <h3> С этой задачей пока не связано других задач, соответствующих условиям поиска </h3>
     {% endif %}
     <input type="text" id="FindTitleUnlink" name="FindTitleUnlink" maxlength="50" value="{{ FindTitleUnlink }}">
     <button type="submit" name="btn_find_unlink" value="new_find_unlink">Найти в несвязанных задачах</button>
-    {% if count_unlink_tasks>0 %}
+    {% if count_unlink_tasks > 0 %}
         <h3>Список несвязанных задач</h3>
         <form method="post">
         {% csrf_token %}
@@ -42,5 +42,8 @@
             {% endfor%}
 
         </form>
+    {% else %}
+        <h3> С этой задачей пока невозможно связать других задач, соответствующих условиям поиска </h3>
+    {% endif %}
 </body>
 </html>

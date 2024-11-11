@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d51118c-8863-454f-9348-c836bb6e83e5" name="Changes" comment="1011(2)">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskTree/TaskTree/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/TaskTree/urls.py" afterDir="false" />
+    <list default="true" id="1d51118c-8863-454f-9348-c836bb6e83e5" name="Changes" comment="1111(1)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TaskTree/TaskTreeApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/TaskTreeApp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TaskTree/templates/card_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/templates/card_task.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskTree/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/templates/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,13 +104,40 @@
       <option name="project" value="LOCAL" />
       <updated>1731255148229</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="1011(3)">
+      <option name="closed" value="true" />
+      <created>1731260271244</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731260271244</updated>
+    </task>
+    <task id="LOCAL-00007" summary="1111">
+      <option name="closed" value="true" />
+      <created>1731340691619</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731340691619</updated>
+    </task>
+    <task id="LOCAL-00008" summary="1111(1)">
+      <option name="closed" value="true" />
+      <created>1731342357065</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731342357065</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1011" />
     <MESSAGE value="1011(1)" />
     <MESSAGE value="1011(2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1011(2)" />
+    <MESSAGE value="1011(3)" />
+    <MESSAGE value="1111" />
+    <MESSAGE value="1111(1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="1111(1)" />
   </component>
 </project>
