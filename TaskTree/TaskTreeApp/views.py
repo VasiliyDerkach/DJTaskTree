@@ -48,8 +48,12 @@ def MainPage(request):
 def PageContacts(request):
     FindTitle = ''
     if request.method == 'POST':
-        if request.POST.get('btn_find')=='new_find':
+        if request.POST.get('btn_find'):
             FindTitle = request.POST.get('FindTitle')
+        id_del = request.POST.get('btn_del')
+        print(id_del)
+        if id_del:
+            Contacts.objects.get(id=id_del).delete()
 
     contacts_lst = Contacts.objects.filter(last_name__icontains=FindTitle)
     count_contacts = contacts_lst.count()
