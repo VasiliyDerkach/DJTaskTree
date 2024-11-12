@@ -45,7 +45,23 @@ def MainPage(request):
     info_main = {'PageTitle': PageStr, 'tasks_list': tasks_lst,
                  'count_tasks': count_tasks, 'FindTitle': FindTitle}
     return render(request, 'main.html', context=info_main)
+def PageContacts(request):
+    FindTitle = ''
+    if request.method == 'POST':
+        if request.POST.get('btn_find')=='new_find':
+            FindTitle = request.POST.get('FindTitle')
 
+    contacts_lst = Contacts.objects.filter(last_name__icontains=FindTitle)
+    count_contacts = contacts_lst.count()
+    if count_contacts == 0:
+        PageStr = 'Нет контактов, соответствующих поиску'
+    elif count_contacts > 0:
+        PageStr = f'Количество контактов = {count_contacts}'
+    info_main = {'PageTitle': PageStr, 'contacts_lst': contacts_lst,
+                 'count_contacts': count_contacts, 'FindTitle': FindTitle}
+    return render(request, 'contacts.html', context=info_main)
+def VCardContact(request, contact_id):
+    pass
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
     count_link_tasks = 0
@@ -71,7 +87,7 @@ def VCardTask(request, task_id):
             btn_find_tlink = request.POST.get('btn_find_tsklink')
             if btn_find_tlink:
                 FindTitle = request.POST.get('FindTitle')
-                print('FindTitle=',FindTitle)
+                # print('FindTitle=',FindTitle)
 
         if count_fulllink_task>0:
             list_link_task = Univers_list.objects.filter(id_out=vtask_id)

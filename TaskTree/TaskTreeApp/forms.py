@@ -6,5 +6,5 @@ class CreateContact(forms.Form):
 
 class CreateTask(forms.Form):
     title = forms.CharField(max_length=250, label='Введите текст задачи')
-    start = forms.DateField(label='Введите дату старта')
-    end = forms.DateField(label='Введите дату завершения')
+    start = forms.DateField(label='Введите дату старта', required=False)
+    end = forms.DateField(label='Введите дату завершения',  required=False)
