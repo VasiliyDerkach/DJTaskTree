@@ -88,7 +88,7 @@ def VCardTask(request, task_id):
                 Univers_list.objects.filter(id_in=vtask_id,id_out=btn_unlink).delete()
             btn_link = request.POST.get('btn_link')
             if btn_link:
-                Univers_list.objects.create(id_in=vtask_id,id_out=btn_unlink)
+                Univers_list.objects.create(id_in=vtask_id,id_out=btn_link)
 
     else:
         return HttpResponse("Задача не найдена")
