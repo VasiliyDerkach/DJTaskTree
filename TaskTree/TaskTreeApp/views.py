@@ -76,13 +76,15 @@ def VCardTask(request, task_id):
                     FindTitleUnLink = request.POST.get('FindTitleUnlink')
 
         if count_fulllink_task>0:
-            list_link_task = Univers_list.objects.filter(id_out=vtask_id,title__icontains=FindTitle)
+            list_link_task = Univers_list.objects.filter(id_out=vtask_id)
             lst_link_idin = list_link_task.values()[0]['id_in']
-            flist_link_task = Univers_list.objects.filter(id=lst_link_idin, title__icontains=FindTitle)
+            # print(lst_link_idin)
+            flist_link_task = Tasks.objects.filter(title__icontains=FindTitle, id=lst_link_idin)
+            # print(flist_link_task)
             notlist_link_task = Tasks.objects.exclude(id=lst_link_idin).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
-            count_link_tasks = list_link_task.count()
+            count_link_tasks = flist_link_task.count()
         else:
-            list_link_task = None
+            flist_link_task = None
             notlist_link_task = Tasks.objects.exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
         count_unlink_tasks = notlist_link_task.count()
         if request.method == 'POST':
