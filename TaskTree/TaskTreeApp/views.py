@@ -53,6 +53,9 @@ def VCardTask(request, task_id):
     # print(type(vtask_id),vtask_id,task_id)
     # info_task = {}
     # if vtask_id==task_id:
+    FindTitleUnLink = ''
+    FindTitle = ''
+
     if find_task:
         lst_field_task = find_task.values()[0]
         vtask_title = lst_field_task['title']
@@ -61,27 +64,22 @@ def VCardTask(request, task_id):
         vtask_id = str(lst_field_task['id'])
         link_task = Univers_list.objects.filter(id_out=vtask_id)
         count_fulllink_task = link_task.count()
-        FindTitleUnLink = ''
-        FindTitle = ''
         if request.method == 'POST':
-            btn_find_link = request.POST.get('btn_find_link')
-
-            if btn_find_link:
-                if request.POST.get('btn_find_link')=='+':
-                    FindTitle = request.POST.get('FindTitle')
             btn_find_unlink = request.POST.get('btn_find_unlink')
-
             if btn_find_unlink:
-                if request.POST.get('btn_find_unlink')=='+':
-                    FindTitleUnLink = request.POST.get('FindTitleUnlink')
+                FindTitleUnLink = request.POST.get('FindTitleUnlink')
+            btn_find_tlink = request.POST.get('btn_find_tsklink')
+            if btn_find_tlink:
+                FindTitle = request.POST.get('FindTitle')
+                print('FindTitle=',FindTitle)
 
         if count_fulllink_task>0:
             list_link_task = Univers_list.objects.filter(id_out=vtask_id)
-            lst_link_idin = [uuid(lst.id_in) for lst in list_link_task]
-            print('lst_link_idin=',lst_link_idin)
-            flist_link_task = Tasks.objects.filter(title__icontains=FindTitle, id=lst_link_idin)
+            lst_link_idin = [str(lst.id_in) for lst in list_link_task]
+            # print('lst_link_idin=',lst_link_idin)
+            flist_link_task = Tasks.objects.filter(title__icontains=FindTitle, id__in=lst_link_idin)
             # print(flist_link_task)
-            notlist_link_task = Tasks.objects.exclude(id=lst_link_idin).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
+            notlist_link_task = Tasks.objects.exclude(id__in=lst_link_idin).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
             count_link_tasks = flist_link_task.count()
         else:
             flist_link_task = None
@@ -106,8 +104,10 @@ def VCardTask(request, task_id):
                     Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link=max_indx_int, role='arrow')
     else:
         return HttpResponse("Задача не найдена")
+
     info_task = {'task_id': vtask_id, 'task_title': vtask_title, 'task_start':vtask_start,
                 'task_end': vtask_end,'list_link_task': flist_link_task,
-                 'notlist_link_task': notlist_link_task,
+                 'notlist_link_task': notlist_link_task, 'FindTitleUnLink': FindTitleUnLink,
+                 'FindTitle': FindTitle,
                  'count_link_tasks': count_link_tasks,'count_unlink_tasks': count_unlink_tasks}
     return render(request,'card_task.html',context=info_task)

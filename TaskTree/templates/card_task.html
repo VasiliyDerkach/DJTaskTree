@@ -9,13 +9,17 @@
     <h2> Данные по задаче: {{ task_title }} </h2>
     <h4> Старт: {{ task_start }} Завершение: {{ task_end }}</h4>
     <p></p>
-    <input type="text" id="FindTitle" name="FindTitle" maxlength="50" value="{{ FindTitle }}">
-    <button type="submit" name="btn_find_link" value="+">Найти в исх.задачах </button>
-
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <input type="text" id="FindTitle" name="FindTitle" maxlength="50" value="{{FindTitle}}">
+            <button type="submit" name="btn_find_tsklink" value="+">Найти в исх.задачах</button>
+        </div>
+    </form>
     {% if count_link_tasks > 0 %}
         <form method="post">
+        {% csrf_token %}
             <div>
-            {% csrf_token %}
             <p>Исходящие задачи</p>
             {% for linktask in list_link_task %}
                 <div>
@@ -26,14 +30,19 @@
                 </div>
             {% endfor%}
             </div>
+        </form>
     {% else %}
         <h3> С этой задачей пока не связано других задач, соответствующих условиям поиска </h3>
     {% endif %}
     <p>_____________</p>
-    <input type="text" id="FindTitleUnlink" name="FindTitleUnlink" maxlength="50" value="{{ FindTitleUnlink }}">
-    <button type="submit" name="btn_find_unlink" value="+">Найти в несвязанных задачах</button>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" id="FindTitleUnlink" name="FindTitleUnlink" maxlength="50" value="{{FindTitleUnlink}}">
+        <button type="submit" name="btn_find_unlink" value="+">Найти в несвязанных задачах</button>
+    </form>
     {% if count_unlink_tasks > 0 %}
         <h3>Список несвязанных задач</h3>
+
         <form method="post">
         {% csrf_token %}
         <div>
