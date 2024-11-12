@@ -35,6 +35,14 @@ def MainPage(request):
     if request.method == 'POST':
         if request.POST.get('btn_find')=='new_find':
             FindTitle = request.POST.get('FindTitle')
+        id_del = request.POST.get('btn_del')
+        # print(id_del)
+        if id_del:
+            Tasks.objects.get(id=id_del).delete()
+        # id_edit = request.POST.get('btn_del')
+        # # print(id_del)
+        # if id_edit:
+        #     Tasks.objects.get(id=id_del).delete()
 
     tasks_lst = Tasks.objects.filter(title__icontains=FindTitle)
     count_tasks = tasks_lst.count()
@@ -51,7 +59,7 @@ def PageContacts(request):
         if request.POST.get('btn_find'):
             FindTitle = request.POST.get('FindTitle')
         id_del = request.POST.get('btn_del')
-        print(id_del)
+        # print(id_del)
         if id_del:
             Contacts.objects.get(id=id_del).delete()
 
@@ -67,7 +75,7 @@ def PageContacts(request):
 def VCardContact(request, contact_id):
 
     VContact = Contacts.objects.get(id=contact_id)
-    print(VContact)
+    # print(VContact)
     if request.method == 'POST':
         VContact.last_name = request.POST.get('last_name')
         VContact.first_name = request.POST.get('first_name')
@@ -75,6 +83,16 @@ def VCardContact(request, contact_id):
         VContact.save()
     return render(request, 'card_contact.html', context={'contact': VContact})
 
+def VEditTask(request, task_id):
+
+    VTask = Tasks.objects.get(id=task_id)
+    # print(VContact)
+    if request.method == 'POST':
+        VTask.title = request.POST.get('task_title')
+        VTask.start = request.POST.get('start')
+        VTask.end = request.POST.get('date_end')
+        VTask.save()
+    return render(request, 'edit_task.html', context={'task': VTask})
 
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
