@@ -63,12 +63,13 @@ def PageContacts(request):
 def VCardContact(request, contact_id):
 
     VContact = Contacts.objects.filter(id=contact_id)
+    # print(VContact.values()[0])
     if request.method == 'POST':
         VContact.last_name = request.POST.get('last_name')
         VContact.first_name = request.POST.get('first_name')
         VContact.second_name = request.POST.get('second_name')
         VContact.save()
-    return render(request, 'card_contact.html', context={'Contact': VContact})
+    return render(request, 'card_contact.html', context=VContact.values()[0])
 
 
 def VCardTask(request, task_id):
