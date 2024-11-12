@@ -10,7 +10,7 @@ class Tasks(models.Model):
 class Univers_list(models.Model):
     id_out = models.CharField(max_length=36, blank=False)
     id_in = models.CharField(max_length=36, blank=False)
-    num_in_link = models.IntegerField(blank=False)
+    num_in_link = models.IntegerField()
     role = models.CharField(max_length=75)
 
 class Contacts(models.Model):

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .forms import *
 from .models import *
 from django.shortcuts import render
+from django.db.models import Avg, Sum, Max
 def VCreateTask(request):
     if request.method == 'POST':
         form = CreateTask(request.POST)
@@ -75,8 +76,10 @@ def VCardTask(request, task_id):
                     FindTitleUnLink = request.POST.get('FindTitleUnlink')
 
         if count_fulllink_task>0:
-            list_link_task = Univers_list.objects.filter(id_in=link_task,title__icontains=FindTitle)
-            notlist_link_task = Tasks.objects.exclude(id=link_task).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
+            list_link_task = Univers_list.objects.filter(id_out=vtask_id,title__icontains=FindTitle)
+            lst_link_idin = list_link_task.values()[0]['id_in']
+            flist_link_task = Univers_list.objects.filter(id=lst_link_idin, title__icontains=FindTitle)
+            notlist_link_task = Tasks.objects.exclude(id=lst_link_idin).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
             count_link_tasks = list_link_task.count()
         else:
             list_link_task = None
@@ -85,17 +88,24 @@ def VCardTask(request, task_id):
         if request.method == 'POST':
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
-                Univers_list.objects.filter(id_in=vtask_id,id_out=btn_unlink).delete()
+                Univers_list.objects.filter(id_in=btn_unlink,id_out=vtask_id).delete()
             btn_link = request.POST.get('btn_link')
             if btn_link:
                 # print(btn_link,vtask_id)
-                max_indx = Univers_list.objects.filter(id_in=vtask_id, id_out=btn_link,  role='arrow').aggregate('num_in_link')+1
-                Univers_list.objects.create(id_in=vtask_id, id_out=btn_link, num_in_link=max_indx, role='arrow')
-
+                if Univers_list.objects.filter(id_in=btn_link, id_out=vtask_id, role='arrow'):
+                    return HttpResponse("Задачи уже связаны")
+                else:
+                    max_indx = Univers_list.objects.filter(id_out=vtask_id, role='arrow').aggregate(Max('num_in_link'))
+                    max_indx_int = max_indx['num_in_link__max']
+                    if not max_indx_int:
+                        max_indx_int = 0
+                    max_indx_int += 1
+                    # print(max_indx)
+                    Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link=max_indx_int, role='arrow')
     else:
         return HttpResponse("Задача не найдена")
     info_task = {'task_id': vtask_id, 'task_title': vtask_title, 'task_start':vtask_start,
-                'task_end': vtask_end,'list_link_task': list_link_task,
+                'task_end': vtask_end,'list_link_task': flist_link_task,
                  'notlist_link_task': notlist_link_task,
                  'count_link_tasks': count_link_tasks,'count_unlink_tasks': count_unlink_tasks}
     return render(request,'card_task.html',context=info_task)
