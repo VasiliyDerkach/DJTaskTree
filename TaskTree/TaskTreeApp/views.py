@@ -77,8 +77,8 @@ def VCardTask(request, task_id):
 
         if count_fulllink_task>0:
             list_link_task = Univers_list.objects.filter(id_out=vtask_id)
-            lst_link_idin = list_link_task.values()[0]['id_in']
-            # print(lst_link_idin)
+            lst_link_idin = [uuid(lst.id_in) for lst in list_link_task]
+            print('lst_link_idin=',lst_link_idin)
             flist_link_task = Tasks.objects.filter(title__icontains=FindTitle, id=lst_link_idin)
             # print(flist_link_task)
             notlist_link_task = Tasks.objects.exclude(id=lst_link_idin).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
