@@ -61,7 +61,16 @@ def PageContacts(request):
                  'count_contacts': count_contacts, 'FindTitle': FindTitle}
     return render(request, 'contacts.html', context=info_main)
 def VCardContact(request, contact_id):
-    pass
+
+    VContact = Contacts.objects.filter(id=contact_id)
+    if request.method == 'POST':
+        VContact.last_name = request.POST.get('last_name')
+        VContact.first_name = request.POST.get('first_name')
+        VContact.second_name = request.POST.get('second_name')
+        VContact.save()
+    return render(request, 'card_contact.html', context={'Contact': VContact})
+
+
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
     count_link_tasks = 0
