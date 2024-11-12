@@ -22,8 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',MainPage),
     path('addtask/',VCreateTask, name='addtask'),
-    path('addcontact/',VCreateContact, name= 'addcontact'),
+    path('addcontact/',VCreateContact, name='addcontact'),
     path('card_task/<slug:task_id>/',VCardTask, name='card_task'),
     path('contacts/',PageContacts, name='contacts'),
-    path('card_contact/<slug:contact_id>/',VCardContact, name='card_contact'),
+    path('contacts/card_contact/<slug:contact_id>/',VCardContact, name='card_contact'),
 ]
