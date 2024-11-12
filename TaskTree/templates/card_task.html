@@ -9,7 +9,7 @@
     <h4> Старт: {{ task_start }} Завершение: {{ task_end }}</h4>
     <p></p>
     <input type="text" id="FindTitle" name="FindTitle" maxlength="50" value="{{ FindTitle }}">
-    <button type="submit" name="btn_find_link" value="new_link_find">Найти в исх.задачах </button>
+    <button type="submit" name="btn_find_link" value="+">Найти в исх.задачах </button>
 
     {% if count_link_task > 0 %}
         <form method="post">
@@ -27,7 +27,7 @@
         <h3> С этой задачей пока не связано других задач, соответствующих условиям поиска </h3>
     {% endif %}
     <input type="text" id="FindTitleUnlink" name="FindTitleUnlink" maxlength="50" value="{{ FindTitleUnlink }}">
-    <button type="submit" name="btn_find_unlink" value="new_find_unlink">Найти в несвязанных задачах</button>
+    <button type="submit" name="btn_find_unlink" value="+">Найти в несвязанных задачах</button>
     {% if count_unlink_tasks > 0 %}
         <h3>Список несвязанных задач</h3>
         <form method="post">

@@ -66,12 +66,12 @@ def VCardTask(request, task_id):
             btn_find_link = request.POST.get('btn_find_link')
 
             if btn_find_link:
-                if not request.POST.get('btn_find_link') is None:
+                if request.POST.get('btn_find_link')=='+':
                     FindTitle = request.POST.get('FindTitle')
             btn_find_unlink = request.POST.get('btn_find_unlink')
 
             if btn_find_unlink:
-                if not request.POST.get('btn_find_unlink') is None:
+                if request.POST.get('btn_find_unlink')=='+':
                     FindTitleUnLink = request.POST.get('FindTitleUnlink')
 
         if count_fulllink_task>0:
