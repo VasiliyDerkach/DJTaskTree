@@ -199,40 +199,38 @@ def VContactsTask(request, task_id):
 
         if count_fulllink_task>0:
             list_link_task = Univers_list.objects.filter(id_out=vtask_id)
-            list_link_task = Contacts.objects.join(Univers_list,Contacts.id==Univers_list.id_in)
+            # list_link_task = Contacts.objects.query.filter().join(Univers_list,Contacts.id==Univers_list.id_in)
             lst_link_idin = [str(lst.id_in) for lst in list_link_task]
             # print('lst_link_idin=',lst_link_idin)
-            flist_link_task = Tasks.objects.filter(title__icontains=FindTitle, id__in=lst_link_idin)
+            flist_link_task = Contacts.objects.filter(last_name__icontains=FindTitle, id__in=lst_link_idin)
             # print(flist_link_task)
-            notlist_link_task = Tasks.objects.exclude(id__in=lst_link_idin).exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
             count_link_tasks = flist_link_task.count()
+            lst_contacts_rol = []
+            for idin in list_link_task.values():
+                elem = idin
+                elem['list_id'] = idin['id']
+                fio = Contacts.objects.filter(id=idin['id_in']).values()[0]
+                elem = {**elem, **fio}
+                lst_contacts_rol.append(elem)
+
         else:
             flist_link_task = None
-            notlist_link_task = Tasks.objects.exclude(id=vtask_id).filter(title__icontains=FindTitleUnLink)
+        notlist_link_task = Contacts.objects.filter(last_name__icontains=FindTitleUnLink)
         count_unlink_tasks = notlist_link_task.count()
         if request.method == 'POST':
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
-                Univers_list.objects.filter(id_in=btn_unlink,id_out=vtask_id).delete()
+                Univers_list.objects.filter(id=btn_unlink).delete()
             btn_link = request.POST.get('btn_link')
+            vrole = request.POST.get('contact_role')
             if btn_link:
-                # print(btn_link,vtask_id)
-                if Univers_list.objects.filter(id_in=btn_link, id_out=vtask_id, role='arrow'):
-                    return HttpResponse("Задачи уже связаны")
-                else:
-                    max_indx = Univers_list.objects.filter(id_out=vtask_id, role='arrow').aggregate(Max('num_in_link'))
-                    max_indx_int = max_indx['num_in_link__max']
-                    if not max_indx_int:
-                        max_indx_int = 0
-                    max_indx_int += 1
-                    # print(max_indx)
-                    Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link=max_indx_int, role='arrow')
+                    Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link='contact', role=vrole)
     else:
         return HttpResponse("Задача не найдена")
 
     info_task = {'task_id': vtask_id, 'task_title': vtask_title, 'task_start':vtask_start,
-                'task_end': vtask_end,'list_link_task': flist_link_task,
+                'task_end': vtask_end,'list_link_task': lst_contacts_rol,
                  'notlist_link_task': notlist_link_task, 'FindTitleUnLink': FindTitleUnLink,
                  'FindTitle': FindTitle,
                  'count_link_tasks': count_link_tasks,'count_unlink_tasks': count_unlink_tasks}
-    return render(request,'card_task.html',context=info_task)
+    return render(request,'task_contacts.html',context=info_task)

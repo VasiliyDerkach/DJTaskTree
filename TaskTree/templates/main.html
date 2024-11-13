@@ -25,7 +25,10 @@
             <div>
                 <a href="/edit_task/{{task.id}}/">
                     <button> -> </button>
-                </a>
+                </a> <a> | </a>
+                <a href="/task_contacts/{{task.id}}/">
+                    <button> -> </button>
+                </a> <a> | </a>
                 <form method="post">
                 {% csrf_token %}
                     <button type="submit" name="btn_del" value="{{task.id}}">-x-</button><a> | </a>
