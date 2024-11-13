@@ -30,28 +30,31 @@
                       <select name="contact_role" id="contact_role">
                         <option value="">-- Выберите роль контакта --</option>
                         <option value="executor"
-                                {% if linktask.role="executor" %}
+                                {% if linktask.role == "executor" %}
                                     selected
                                 {% endif %}
                         >Исполнитель</option>
                         <option value="target"
-                                {% if linktask.role="target" %}
+                                {% if linktask.role == "target" %}
                                     selected
                                 {% endif %}
                         >Цель задачи</option>
                         <option value="controle"
-                                {% if linktask.role="controle" %}
+                                {% if linktask.role == "controle" %}
                                     selected
                                 {% endif %}
 
                         >Контролер</option>
                         <option value="chief"
-                                {% if linktask.role="chief" %}
+                                {% if linktask.role == "chief" %}
                                     selected
                                 {% endif %}
                         >Руководитель</option>
                       </select>
-                    <a> {{linktask.last_name}} {{linktask.first_name}} {{linktask.second_name}} </a>
+                    <button name="btn_role" type="submit" value="{{linktask.list_id}}">
+                        U
+                    </button>
+                    <a>   {{linktask.last_name}} {{linktask.first_name}} {{linktask.second_name}} </a>
                 </div>
             {% endfor%}
             </div>

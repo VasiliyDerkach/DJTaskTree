@@ -179,7 +179,7 @@ def VContactsTask(request, task_id):
     # if vtask_id==task_id:
     FindTitleUnLink = ''
     FindTitle = ''
-
+    lst_contacts_rol = []
     if find_task:
         lst_field_task = find_task.values()[0]
         vtask_title = lst_field_task['title']
@@ -205,13 +205,15 @@ def VContactsTask(request, task_id):
             flist_link_task = Contacts.objects.filter(last_name__icontains=FindTitle, id__in=lst_link_idin)
             # print(flist_link_task)
             count_link_tasks = flist_link_task.count()
-            lst_contacts_rol = []
+
             for idin in list_link_task.values():
-                elem = idin
-                elem['list_id'] = idin['id']
-                fio = Contacts.objects.filter(id=idin['id_in']).values()[0]
-                elem = {**elem, **fio}
-                lst_contacts_rol.append(elem)
+                cnt = Contacts.objects.filter(id=idin['id_in'])
+                if cnt:
+                    elem = idin
+                    elem['list_id'] = idin['id']
+                    fio = cnt.values()[0]
+                    elem = {**elem, **fio}
+                    lst_contacts_rol.append(elem)
 
         else:
             flist_link_task = None
@@ -222,9 +224,16 @@ def VContactsTask(request, task_id):
             if btn_unlink:
                 Univers_list.objects.filter(id=btn_unlink).delete()
             btn_link = request.POST.get('btn_link')
-            vrole = request.POST.get('contact_role')
+            btn_role = request.POST.get('btn_role')
+            if btn_role:
+                # print(vrole)
+                vrole = request.POST.get('contact_role')
+                Univers_list.objects.filter(id=btn_role).update(role=vrole)
+            else:
+                vrole = ''
+
             if btn_link:
-                    Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link='contact', role=vrole)
+                    Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link=0, role=vrole)
     else:
         return HttpResponse("Задача не найдена")
 
