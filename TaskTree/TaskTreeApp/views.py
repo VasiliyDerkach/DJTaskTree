@@ -85,14 +85,17 @@ def VCardContact(request, contact_id):
 
 def VEditTask(request, task_id):
 
-    VTask = Tasks.objects.get(id=task_id)
-    # print(VContact)
+    GTask = Tasks.objects.filter(id=task_id)
+    # print(FTask)
     if request.method == 'POST':
-        VTask.title = request.POST.get('task_title')
-        VTask.start = request.POST.get('start')
-        VTask.end = request.POST.get('date_end')
-        VTask.save()
-    return render(request, 'edit_task.html', context={'task': VTask})
+        GTask.update(title = request.POST.get('task_title'),
+        start = request.POST.get('start'),
+        end = request.POST.get('date_end'))
+        # print(request.POST.get('task_title'),request.POST.get('start'),request.POST.get('date_end'))
+    FTask = GTask.values()[0]
+    FTask['start'] = FTask['start'].strftime('%Y-%m-%d')
+    FTask['end'] = FTask['end'].strftime('%Y-%m-%d')
+    return render(request, 'edit_task.html', context={'task': FTask})
 
 def VCardTask(request, task_id):
     find_task = Tasks.objects.filter(id=task_id)
