@@ -29,13 +29,13 @@
                 <a href="/task_contacts/{{task.id}}/">
                     <button> <> </button>
                 </a> <a> | </a>
+                <a href="card_task/{{ task.id }}/">{{ task.title }}</a>
+                <a>  Начало {{ task.start }} </a>
+                <a>  Завершение {{ task.end }} </a>
                 <form method="post">
                 {% csrf_token %}
                     <button type="submit" name="btn_del" value="{{task.id}}">-x-</button><a> | </a>
                 </form>
-                <a href="card_task/{{ task.id }}/">{{ task.title }}</a>
-                <a>  Начало {{ task.start }} </a>
-                <a>  Завершение {{ task.end }} </a>
             </div>
         {% endfor %}
 
