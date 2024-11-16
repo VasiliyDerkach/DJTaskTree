@@ -77,7 +77,7 @@ def VCreateTask(request):
     else:
         form = CreateTask()
     cont_form={'form': form}
-    return render(request, 'create_contact.html',context=cont_form)
+    return render(request, 'create_task.html',context=cont_form)
 # Create your views here.
 def VCreateContact(request):
     if request.method == 'POST':
