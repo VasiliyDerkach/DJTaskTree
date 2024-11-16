@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d51118c-8863-454f-9348-c836bb6e83e5" name="Changes" comment="1211-3">
+    <list default="true" id="1d51118c-8863-454f-9348-c836bb6e83e5" name="Changes" comment="1211-8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskTree/TaskTreeApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/TaskTreeApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskTree/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TaskTree/templates/card_task.html" beforeDir="false" afterPath="$PROJECT_DIR$/TaskTree/templates/card_task.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
