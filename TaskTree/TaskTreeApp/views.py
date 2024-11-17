@@ -200,7 +200,7 @@ def VCardTask(request, task_id):
         if request.method == 'POST':
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
-                Univers_list.objects.filter(id_in=btn_unlink,id_out=vtask_id).delete()
+                Univers_list.objects.filter(id=btn_unlink).delete()
             btn_link = request.POST.get('btn_link')
             if btn_link:
                 # print(btn_link,vtask_id)
