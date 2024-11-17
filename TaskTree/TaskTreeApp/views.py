@@ -200,7 +200,7 @@ def VCardTask(request, task_id):
         if request.method == 'POST':
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
-                Univers_list.objects.filter(id=btn_unlink).delete()
+                Univers_list.objects.filter(id_in=btn_unlink,id_out=vtask_id).delete()
             btn_link = request.POST.get('btn_link')
             if btn_link:
                 # print(btn_link,vtask_id)
@@ -278,15 +278,17 @@ def VContactsTask(request, task_id):
                 Univers_list.objects.filter(id=btn_unlink).delete()
             btn_link = request.POST.get('btn_link')
             btn_role = request.POST.get('btn_role')
+            vrole = request.POST.get(f"contact_role>{btn_role}")
+
             if btn_role:
                 # print(vrole)
-                vrole = request.POST.get(f"contact_role>{btn_role}")
+
                 Univers_list.objects.filter(id=btn_role).update(role=vrole)
             else:
                 vrole = ''
 
             if btn_link:
-                    Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link=0, role=vrole)
+                    Univers_list.objects.create(id=btn_link)
     else:
         return HttpResponse("Задача не найдена")
 
