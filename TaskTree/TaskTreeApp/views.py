@@ -180,9 +180,11 @@ def VCardTask(request, task_id):
             btn_find_unlink = request.POST.get('btn_find_unlink')
             if btn_find_unlink:
                 FindTitleUnLink = request.POST.get('FindTitleUnlink')
+                btn_find_unlink = None
             btn_find_tlink = request.POST.get('btn_find_tsklink')
             if btn_find_tlink:
                 FindTitle = request.POST.get('FindTitle')
+                btn_find_tlink = None
                 # print('FindTitle=',FindTitle)
 
         if count_fulllink_task>0:
@@ -201,6 +203,7 @@ def VCardTask(request, task_id):
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
                 Univers_list.objects.filter(id_in=btn_unlink,id_out=vtask_id).delete()
+                btn_unlink = None
             btn_link = request.POST.get('btn_link')
             if btn_link:
                 # print(btn_link,vtask_id)
@@ -214,6 +217,7 @@ def VCardTask(request, task_id):
                     max_indx_int += 1
                     # print(max_indx)
                     Univers_list.objects.create(id_in=btn_link, id_out=vtask_id, num_in_link=max_indx_int, role='arrow')
+                btn_link = None
     else:
         return HttpResponse("Задача не найдена")
 
@@ -245,9 +249,11 @@ def VContactsTask(request, task_id):
             btn_find_unlink = request.POST.get('btn_find_unlink')
             if btn_find_unlink:
                 FindTitleUnLink = request.POST.get('FindTitleUnlink')
+                btn_find_unlink = None
             btn_find_tlink = request.POST.get('btn_find_tsklink')
             if btn_find_tlink:
                 FindTitle = request.POST.get('FindTitle')
+                btn_find_tlink = None
                 # print('FindTitle=',FindTitle)
 
         if count_fulllink_task>0:
@@ -276,6 +282,7 @@ def VContactsTask(request, task_id):
             btn_unlink = request.POST.get('btn_unlink')
             if btn_unlink:
                 Univers_list.objects.filter(id=btn_unlink).delete()
+                btn_unlink = None
             btn_link = request.POST.get('btn_link')
             btn_role = request.POST.get('btn_role')
             vrole = request.POST.get(f"contact_role>{btn_role}")
@@ -284,11 +291,13 @@ def VContactsTask(request, task_id):
                 # print(vrole)
 
                 Univers_list.objects.filter(id=btn_role).update(role=vrole)
+                btn_role = None
             else:
                 vrole = ''
 
             if btn_link:
-                    Univers_list.objects.create(id=btn_link)
+                Univers_list.objects.create(id=btn_link)
+                btn_link = None
     else:
         return HttpResponse("Задача не найдена")
 
