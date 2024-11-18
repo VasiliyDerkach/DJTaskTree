@@ -72,7 +72,11 @@ def VCreateTask(request):
         if form.is_valid():
             title = form.cleaned_data['title']
             task_start = form.cleaned_data['start']
+            if task_start=='':
+                task_start = None
             task_end = form.cleaned_data['end']
+            if task_end=='':
+                task_end = None
             Tasks.objects.create(title=title, start=task_start, end=task_end)
     else:
         form = CreateTask()
