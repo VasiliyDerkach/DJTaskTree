@@ -298,7 +298,8 @@ def VContactsTask(request, task_id):
         из таблицы связей Univers_list.
         Там же реализован выпадающий список ролей взаимосвязи задачи и контакта (исполнитель, руководитель и т.п.) для
         выбора роли для данной взаимосвязи. Рядом с данным выпадающим списком реализована кнопка сохранения данных о роли
-        в поле Role таблицы Univers_list.
+        в поле Role таблицы Univers_list. Аналогично работает кнопка "Сохранить все роли" с той лишь разницей, что обеспечивает
+        сохранение всех измененых в списке ролей.
         Страница содержит список всех контактов. При этом не исключается повторное связывание
         задач и контакта.
 
@@ -306,6 +307,7 @@ def VContactsTask(request, task_id):
         через добавление соответствующей записи в таблицу Univers_list.
         Реализованы поиски связанных контактов задачи по контексту фамилии в ее загаловке
         и аналогично по списку несвязанных контактов.
+
     """
     find_task = Tasks.objects.filter(id=task_id)
     count_link_tasks = 0
@@ -365,10 +367,16 @@ def VContactsTask(request, task_id):
             btn_link = request.POST.get('btn_link')
             btn_role = request.POST.get('btn_role')
             vrole = request.POST.get(f"contact_role>{btn_role}")
+            btn_all_role = request.POST.get('btn_role_all')
+            if btn_all_role:
+                for t in lst_contacts_rol:
+                    v_role = request.POST.get(f"contact_role>{t['list_id']}")
+                    if t['role'] != v_role:
+                        Univers_list.objects.filter(id=t['list_id']).update(role=v_role)
+                btn_all_role = None
 
             if btn_role:
                 # print(vrole)
-
                 Univers_list.objects.filter(id=btn_role).update(role=vrole)
                 btn_role = None
             else:
