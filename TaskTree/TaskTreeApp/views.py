@@ -368,9 +368,13 @@ def VContactsTask(request, task_id):
             btn_role = request.POST.get('btn_role')
             vrole = request.POST.get(f"contact_role>{btn_role}")
             btn_all_role = request.POST.get('btn_role_all')
-            if btn_all_role:
+            if btn_all_role or btn_role:
+                print('btn_role_all')
                 for t in lst_contacts_rol:
                     v_role = request.POST.get(f"contact_role>{t['list_id']}")
+                    print(t, 'v_role=', v_role,f"contact_role>{t['list_id']}")
+                    if not v_role:
+                        v_role = ''
                     if t['role'] != v_role:
                         Univers_list.objects.filter(id=t['list_id']).update(role=v_role)
                 btn_all_role = None
@@ -383,7 +387,7 @@ def VContactsTask(request, task_id):
                 vrole = ''
 
             if btn_link:
-                Univers_list.objects.create(id=btn_link)
+                Univers_list.objects.create(id_in=btn_link, id_out=vtask_id,num_in_link=0)
                 btn_link = None
     else:
         return HttpResponse("Задача не найдена")
