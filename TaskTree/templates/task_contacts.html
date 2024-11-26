@@ -17,13 +17,13 @@
         <div>
             <input type="text" id="FindTitle" name="FindTitle" maxlength="50" value="{{FindTitle}}">
             <button type="submit" name="btn_find_tsklink" value="+">Найти в прикрепленных контактах</button>
-            <button type="submit" name="btn_role_all" value="+">Сохранить все роли</button>
         </div>
     </form>
     {% if count_link_tasks > 0 %}
         <form method="post">
         {% csrf_token %}
             <div>
+            <button type="submit" name="btn_role_all" value="+">Сохранить все роли</button>
             <p>Прикрепленные контакты и роли, по условиям поиска</p>
             {% for linktask in list_link_task %}
                 <div>

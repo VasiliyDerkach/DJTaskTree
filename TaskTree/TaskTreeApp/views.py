@@ -368,7 +368,7 @@ def VContactsTask(request, task_id):
             btn_role = request.POST.get('btn_role')
             vrole = request.POST.get(f"contact_role>{btn_role}")
             btn_all_role = request.POST.get('btn_role_all')
-            if btn_all_role or btn_role:
+            if btn_all_role:
                 print('btn_role_all')
                 for t in lst_contacts_rol:
                     v_role = request.POST.get(f"contact_role>{t['list_id']}")
