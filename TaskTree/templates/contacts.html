@@ -23,7 +23,7 @@
         {% for contact in contacts_lst %}
             <div>
                 <button type="submit" name="btn_del" value="{{contact.id}}">-x-</button><a> | </a>
-                <a href="card_contact/{{ contact.id }}/">{{ contact.last_name }} {{ contact.first_name }} {{ contact.second_name }}</a>
+                <a href="../card_contact/{{ contact.id }}/">{{ contact.last_name }} {{ contact.first_name }} {{ contact.second_name }}</a>
             </div>
         {% endfor %}
         </form>
