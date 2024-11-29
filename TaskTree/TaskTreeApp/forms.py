@@ -39,9 +39,8 @@ class CreateTask(forms.Form):
         start - дата старта задачи
         end - дата завершения задачи
     """
+    widg = forms.DateInput(format='%d.%m.%Y', attrs={'type': 'date'})\
+    inform = ['%Y-%m-%d']
     title = forms.CharField(max_length=250, label='Введите текст задачи')
-    start = forms.DateField(label='Введите дату старта', required=False, widget=forms.DateTimeInput(attrs={
-            'class': 'form-control datetimepicker-input',
-            'data-target': '#datetimepicker1'
-        }),input_formats=['%d/%m/%Y %H:%M'])
-    end = forms.DateField(label='Введите дату завершения',  required=False, widget=forms.DateTimeInput())
+    start = forms.DateField(label='Введите дату старта', required=False, widget=widg, input_formats = inform)
+    end = forms.DateField(label='Введите дату завершения',  required=False, widget=widg, input_formats = inform)
