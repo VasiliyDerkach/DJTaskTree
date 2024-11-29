@@ -183,6 +183,31 @@ def VCardContact(request, contact_id):
         VContact.save()
     return render(request, 'card_contact.html', context={'contact': VContact})
 
+def VFormCardContact(request, contact_id):
+    """
+        VFormCardContact(request, contact_id) - функция, вызывающая Django.form, для страницы редактирования данных конаткта.
+        Атрибут contact_id - значение ключевого поля id таблицы контактов.
+    """
+
+    VContact = Contacts.objects.get(id=contact_id)
+    DContact = Contacts.objects.filter(id=contact_id).values()[0]
+    # print(VContact)
+    if request.method == 'POST':
+        print(DContact)
+        form = CreateContact( request.POST, initial=DContact)
+        if form.is_valid():
+            last_name = form.cleaned_data['last_name']
+            VContact.last_name = last_name
+            first_name = form.cleaned_data['first_name']
+            VContact.first_name = first_name
+            second_name = form.cleaned_data['second_name']
+            VContact.second_name = second_name
+            VContact.save()
+    else:
+        form = CreateContact(initial=DContact)
+    cont_form={'form': form}
+    return render(request, 'create_contact.html',context=cont_form)
+
 def VEditTask(request, task_id):
     """
         VEditTask(request, task_id)  - функция, вызывающая html шаблон, для страницы редактирования данных задачи.

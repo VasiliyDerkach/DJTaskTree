@@ -32,6 +32,6 @@ urlpatterns = [
 #- task_contacts/ - страница редактирования связей задачи с Tasks.id=task_id с контактами,
     path('task_contacts/<slug:task_id>/',VContactsTask,name='task_contacts'),
 #- contacts/card_contact/ - страница редактирования полей контакта с Contacts.id=contact_id.
-    path('card_contact/<slug:contact_id>/',VCardContact, name='card_contact'),
+    path('card_contact/<slug:contact_id>/',VFormCardContact, name='card_contact'),
     # path('task_contacts/<slug:task_id>/card_contact/<slug:contact_id>/',VCardContact,name='task_contacts'),
 ]

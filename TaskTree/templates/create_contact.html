@@ -1,5 +1,5 @@
 <!--шаблон create_contact
-предназначен для создания нового контакта.
+предназначен для создания нового контакта или редактирования контакта.
 Функционал см. в описании представления VCreateContact-->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form }}
-        <button type="submit">Создать</button>
+        <button type="submit">Создать/Сохранить</button>
     </form>
 
 </body>
